@@ -26,7 +26,7 @@ ACLED→ https://acleddata.com/user/register          (email + password, no key)
 # ══════════════════════════════════════════════════════
 #  API CREDENTIALS — paste between the quotes
 # ══════════════════════════════════════════════════════
-
+import streamlit as st
 EIA_API_KEY    = st.secrets.get("EIA_API_KEY", "")
 ACLED_EMAIL    = st.secrets.get("ACLED_EMAIL", "")
 ACLED_API_KEY = st.secrets.get("ACLED_API_KEY", "") 
