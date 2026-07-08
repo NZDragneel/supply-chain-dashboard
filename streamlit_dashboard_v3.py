@@ -2208,7 +2208,7 @@ elif view_mode == "Scenario Simulator":
             pcts   = [alloc[n]/sim_vol*100 for n in names]
             bcolors= ["#DC2626" if ROUTES[n]["choke_exposure"]=="HIGH" else
                       "#0891B2" if ROUTES[n]["choke_exposure"]=="LOW" else "#059669" for n in names]
-            fig3,ax3 = white_fig(figsize=(8,max(4,len(names)*0.7)))
+            fig3,ax3 = white_fig(figsize=(10,max(4,len(names)*0.7)))
             b3 = ax3.barh(names, pcts, color=bcolors, alpha=0.85, edgecolor="#E2E8F0", height=0.55)
             for bar,pct,n in zip(b3,pcts,names):
                 ax3.text(bar.get_width()+0.5,bar.get_y()+bar.get_height()/2,
