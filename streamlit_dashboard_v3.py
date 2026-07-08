@@ -2174,7 +2174,7 @@ elif view_mode == "Scenario Simulator":
 <div style='background:{BG_MAP[pred_class]};border-left:6px solid {color};
             border-radius:8px;padding:16px;margin:16px 0;'>
   <div style='color:#475569;font-size:17px;font-weight:600;'>ML PREDICTED RISK CLASS</div>
-  <div style='color:{color};font-size:36px;font-weight:800;'>
+  <div style='color:{color};font-size:34px;font-weight:800;'>
     Class {pred_class}: {LABEL_NAMES[pred_class]}</div>
   <div style='color:{conf_color};font-size:16px;font-weight:600;'>
     Model Confidence: {confidence*100:.0f}%
