@@ -26,9 +26,10 @@ ACLED→ https://acleddata.com/user/register          (email + password, no key)
 # ══════════════════════════════════════════════════════
 #  API CREDENTIALS — paste between the quotes
 # ══════════════════════════════════════════════════════
-EIA_API_KEY    = "uiaSWkePD7DeStdBb6q9DoJfxAQn5R5YJ1KTlS6v"   # free key from eia.gov/opendata/register.php
-ACLED_API_KEY  = "125126119@umail.ucc.ie"   # free key from acleddata.com/user/register
-ACLED_EMAIL    = "NZdragneel@0"   # email you used to register with ACLED
+
+EIA_API_KEY    = st.secrets.get("EIA_API_KEY", "")
+ACLED_EMAIL    = st.secrets.get("ACLED_EMAIL", "")
+ACLED_API_KEY = st.secrets.get("ACLED_API_KEY", "") 
 # ══════════════════════════════════════════════════════
 
 import streamlit as st
@@ -526,7 +527,7 @@ if view_mode == "Live Risk Monitor":
 </div>""", unsafe_allow_html=True)
 
             # Mini trend chart
-            fig_ew, ax_ew = white_fig(figsize=(14, 2.5))
+            fig_ew, ax_ew = white_fig(figsize=(17, 2.5))
             ax_ew.plot(last_n["date"], y_vals, color="#0891B2", linewidth=2)
             if slope > 0 and days_to_cross and days_to_cross < 120:
                 future_dates = pd.date_range(last_n["date"].iloc[-1],
