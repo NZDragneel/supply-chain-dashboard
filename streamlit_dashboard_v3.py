@@ -2186,7 +2186,7 @@ elif view_mode == "Scenario Simulator":
                    edgecolor="#E2E8F0", height=0.55)
     for bar,val in zip(bars,pred_proba*100):
         ax.text(bar.get_width()+1,bar.get_y()+bar.get_height()/2,
-                f"{val:.1f}%",va="center",color="#1E293B",fontweight="bold",fontsize=14)
+                f"{val:.1f}%",va="center",color="#1E293B",fontsize=14)
     ax.set_xlim(0,110)
     style_ax(ax, title="Model Class Probability Distribution", xlabel="Probability (%)")
     plt.tight_layout(); st.pyplot(fig); plt.close()
