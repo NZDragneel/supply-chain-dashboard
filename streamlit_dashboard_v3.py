@@ -510,7 +510,7 @@ if view_mode == "Live Risk Monitor":
                            linewidth=1.5, linestyle="--", alpha=0.7, label="Projected trend")
                 ax_ew.axhline(next_thresh, color="#DC2626", linewidth=1, linestyle=":", alpha=0.7)
                 ax_ew.text(future_dates[-1], next_thresh+1,
-                           f"Threshold {next_thresh}", color="#DC2626", fontsize=10)
+                           f"Threshold {next_thresh}", color="#DC2626", fontsize=14)
             ax_ew.set_ylim(0, 105)
             style_ax(ax_ew, ylabel="Risk Score")
             plt.tight_layout()
