@@ -2181,7 +2181,7 @@ elif view_mode == "Scenario Simulator":
     {"✅ High" if confidence>=0.80 else "⚠️ Medium" if confidence>=0.60 else "🔴 Low"}</div>
 </div>""", unsafe_allow_html=True)
 
-    fig, ax = white_fig(figsize=(10,2.8))
+    fig, ax = white_fig(figsize=(12,2.8))
     bars = ax.barh(LABEL_NAMES, pred_proba*100, color=CLASS_COLORS, alpha=0.85,
                    edgecolor="#E2E8F0", height=0.55)
     for bar,val in zip(bars,pred_proba*100):
