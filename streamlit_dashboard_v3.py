@@ -1,31 +1,6 @@
-"""
-=============================================================================
-SUPPLY CHAIN DISRUPTION PREDICTION — LIVE STREAMLIT DASHBOARD v3
-Group 14 | IS6611 | Cork University Business School | 2025-2026
 
-FILES REQUIRED (all in the same folder):
-  streamlit_dashboard_v3.py   ← this file
-  prescriptive_engine.py      ← MILP optimiser
-  live_data_feeds.py          ← real API feeds
-  supply_chain_master_dataset.csv
 
-INSTALL (run once):
-  pip install streamlit pandas numpy matplotlib seaborn scikit-learn scipy pulp requests plotly
 
-RUN:
-  streamlit run streamlit_dashboard_v3.py
-
-─────────────────────────────────────────────────────────────────────────────
-► PASTE YOUR FREE API CREDENTIALS HERE (only change needed)
-─────────────────────────────────────────────────────────────────────────────
-EIA  → https://www.eia.gov/opendata/register.php   (instant by email)
-ACLED→ https://acleddata.com/user/register          (email + password, no key)
-=============================================================================
-"""
-
-# ══════════════════════════════════════════════════════
-#  API CREDENTIALS — paste between the quotes
-# ══════════════════════════════════════════════════════
 import streamlit as st
 EIA_API_KEY    = st.secrets.get("EIA_API_KEY", "")
 ACLED_EMAIL    = st.secrets.get("ACLED_EMAIL", "")
@@ -50,7 +25,7 @@ from prescriptive_engine import (
     CLASS_CONSTRAINTS, COST_PARAMS,
 )
 
-# ── Live data feeds (graceful if missing) ─────────────────────────────────────
+#  Live data feeds (graceful if missing) ─────────────────────────────────────
 try:
     from live_data_feeds import (
         LiveSignalFetcher, render_data_freshness_badge,
@@ -60,7 +35,7 @@ try:
 except ImportError:
     LIVE_MODULE_AVAILABLE = False
 
-# ── Plotly (for geographic map) ───────────────────────────────────────────────
+#  Plotly (for geographic map) ───────────────────────────────────────────────
 try:
     import plotly.graph_objects as go
     PLOTLY_OK = True
@@ -72,9 +47,7 @@ st.set_page_config(page_title="Supply Chain Intelligence | Group 14",
                    page_icon="🔗", layout="wide",
                    initial_sidebar_state="expanded")
 
-# ─────────────────────────────────────────────────────────────────────────────
-# GLOBAL CSS — px-based (rem is ineffective in Streamlit's shadow DOM)
-# Every selector uses current Streamlit data-testid attribute names
+
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -527,7 +500,7 @@ if view_mode == "Live Risk Monitor":
 </div>""", unsafe_allow_html=True)
 
             # Mini trend chart
-            fig_ew, ax_ew = white_fig(figsize=(17, 2.5))
+            fig_ew, ax_ew = white_fig(figsize=(19, 3))
             ax_ew.plot(last_n["date"], y_vals, color="#0891B2", linewidth=2)
             if slope > 0 and days_to_cross and days_to_cross < 120:
                 future_dates = pd.date_range(last_n["date"].iloc[-1],
@@ -537,7 +510,7 @@ if view_mode == "Live Risk Monitor":
                            linewidth=1.5, linestyle="--", alpha=0.7, label="Projected trend")
                 ax_ew.axhline(next_thresh, color="#DC2626", linewidth=1, linestyle=":", alpha=0.7)
                 ax_ew.text(future_dates[-1], next_thresh+1,
-                           f"Threshold {next_thresh}", color="#DC2626", fontsize=14)
+                           f"Threshold {next_thresh}", color="#DC2626", fontsize=10)
             ax_ew.set_ylim(0, 105)
             style_ax(ax_ew, ylabel="Risk Score")
             plt.tight_layout()
