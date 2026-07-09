@@ -5,7 +5,7 @@ import streamlit as st
 EIA_API_KEY    = st.secrets.get("EIA_API_KEY", "")
 ACLED_EMAIL    = st.secrets.get("ACLED_EMAIL", "")
 ACLED_API_KEY = st.secrets.get("ACLED_API_KEY", "") 
-# ══════════════════════════════════════════════════════
+
 
 import streamlit as st
 import pandas as pd
@@ -18,14 +18,14 @@ import matplotlib.patches as mpatches
 import warnings
 warnings.filterwarnings("ignore")
 
-# ── Prescriptive engine ───────────────────────────────────────────────────────
+#  Prescriptive engine 
 from prescriptive_engine import (
     solve_milp, get_inventory_recommendation,
     calculate_cost_of_inaction, ROUTES, ROUTE_NAMES,
     CLASS_CONSTRAINTS, COST_PARAMS,
 )
 
-#  Live data feeds (graceful if missing) ─────────────────────────────────────
+#  Live data feeds (graceful if missing) 
 try:
     from live_data_feeds import (
         LiveSignalFetcher, render_data_freshness_badge,
@@ -35,20 +35,19 @@ try:
 except ImportError:
     LIVE_MODULE_AVAILABLE = False
 
-#  Plotly (for geographic map) ───────────────────────────────────────────────
+#  Plotly (for geographic map) 
 try:
     import plotly.graph_objects as go
     PLOTLY_OK = True
 except ImportError:
     PLOTLY_OK = False
 
-# ─────────────────────────────────────────────────────────────────────────────
+# 
 st.set_page_config(page_title="Supply Chain Intelligence | Group 14",
                    page_icon="🔗", layout="wide",
                    initial_sidebar_state="expanded")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 
@@ -81,15 +80,15 @@ section[data-testid="stSidebar"] span[data-baseweb="tag"] * {
 
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # CONSTANTS
-# ─────────────────────────────────────────────────────────────────────────────
+
 LABEL_NAMES  = ["Stable", "Minor Stress", "Medium Disruption", "Major Crisis"]
 CLASS_COLORS = ["#059669", "#D97706", "#EA580C", "#DC2626"]
 BG_MAP   = {0:"#DCFCE7",1:"#FEF9C3",2:"#FFEDD5",3:"#FEE2E2"}
 BD_MAP   = {0:"#059669",1:"#D97706",2:"#EA580C",3:"#DC2626"}
 
-# Corridor → signals mapping  (fixes Additional B — dead multiselect)
+# Corridor → signals mapping  (fixes Additional B - dead multiselect)
 CORRIDOR_SIGNAL_MAP = {
     "Hormuz": {
         "GDELT Sentiment": [
@@ -180,13 +179,13 @@ DRUG_CONCENTRATION = {
     "Dexamethasone":               {"India": 72, "China": 18, "EU": 10},
 }
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # DATA + MODEL  (NOTE: training uses synthetic data — correct and intentional.
 #  The ML classifier learns to approximate the domain-expert risk scoring
 #  function from raw signals alone, without access to the formula.
 #  This is standard practice in synthetic-data-trained decision support
-#  systems — Bertsimas & Kallus 2020.)
-# ─────────────────────────────────────────────────────────────────────────────
+#  systems  Bertsimas & Kallus 2020.)
+
 @st.cache_data
 def load_data():
     return pd.read_csv("supply_chain_master_dataset.csv", parse_dates=["date"])
@@ -309,9 +308,8 @@ if not DATA_LOADED:
     st.error("⚠️ Dataset not found. Run `generate_synthetic_data.py` first.")
     st.stop()
 
-# ─────────────────────────────────────────────────────────────────────────────
 # DATE FILTER
-# ─────────────────────────────────────────────────────────────────────────────
+
 if date_range and isinstance(date_range,(list,tuple)) and len(date_range)==2:
     dff = df[(df["date"]>=pd.Timestamp(date_range[0]))&
              (df["date"]<=pd.Timestamp(date_range[1]))]
