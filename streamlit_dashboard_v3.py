@@ -1440,7 +1440,7 @@ to current supply chain conditions. Source: IDA Ireland & HPRA pharmaceutical im
     st.markdown("---")
     selected_drug = st.selectbox("Inspect source breakdown:", list(DRUG_CONCENTRATION.keys()))
     src = DRUG_CONCENTRATION[selected_drug]
-    fig_p, ax_p = white_fig(figsize=(10,6))
+    fig_p, ax_p = white_fig(figsize=(7,4))
     pie_c = ["#0891B2","#EA580C","#059669"]
     wedges,texts,autos = ax_p.pie(list(src.values()), labels=list(src.keys()),
                                    autopct="%1.0f%%", colors=pie_c, startangle=90,
