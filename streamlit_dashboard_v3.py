@@ -1444,11 +1444,11 @@ to current supply chain conditions. Source: IDA Ireland & HPRA pharmaceutical im
     pie_c = ["#0891B2","#EA580C","#059669"]
     wedges,texts,autos = ax_p.pie(list(src.values()), labels=list(src.keys()),
                                    autopct="%1.0f%%", colors=pie_c, startangle=90,
-                                   textprops={"fontsize":11,"fontweight":"bold","color":"#1E293B"},
+                                   textprops={"fontsize":10,"color":"#1E293B"},
                                    wedgeprops={"edgecolor":"white","linewidth":2})
-    for at in autos: at.set_color("white"); at.set_fontweight("bold")
+    for at in autos: at.set_color("white");
     ax_p.set_title(f"{selected_drug}\nSource Country Breakdown",
-                   color="#1E293B", fontsize=14, fontweight="bold")
+                   color="#1E293B", fontsize=12, )
     plt.tight_layout(); st.pyplot(fig_p); plt.close()
 
     st.caption("Source: IDA Ireland pharmaceutical sector data; HPRA API import statistics; "
