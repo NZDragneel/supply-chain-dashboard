@@ -755,7 +755,7 @@ elif view_mode == "2. Predictive Engine":
         left, right = st.columns([1,1])
         with left:
             st.markdown("##### 📊 Model Class Confidence")
-            fig, ax = white_fig(figsize=(5,2))
+            fig, ax = white_fig(figsize=(7,4))
             bars = ax.barh(LABEL_NAMES,[p*100 for p in probs],
                            color=CLASS_COLORS,alpha=0.85,edgecolor="#E2E8F0",height=0.55)
             for bar in bars:
