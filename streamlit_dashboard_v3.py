@@ -777,7 +777,11 @@ elif view_mode == "2. Predictive Engine":
             if len(y_te) > 0:
                 try:
                     y_pred = rf.predict(X_te)
-                    rep = classification_report(y_te, y_pred, target_names=LABEL_NAMES,
+                    # Explicitly pass labels=[0,1,2,3] so the report still works
+                    # even when a class (e.g. Stable / Minor Stress) doesn't occur
+                    # in this particular test window (2024-2026 is Medium/Major only).
+                    rep = classification_report(y_te, y_pred, labels=[0,1,2,3],
+                                                target_names=LABEL_NAMES,
                                                 output_dict=True, zero_division=0)
                     rows = []
                     for cls in LABEL_NAMES:
@@ -795,8 +799,10 @@ elif view_mode == "2. Predictive Engine":
                     st.download_button("⬇️ Download performance table",
                                        data=csv_perf, file_name="model_performance.csv",
                                        mime="text/csv")
-                except Exception:
-                    st.info("Performance metrics require test-period data.")
+                except Exception as e:
+                    st.info(f"Performance metrics unavailable: {e}")
+            else:
+                st.info("Performance metrics require test-period data.")
 
         with right:
             st.markdown("##### 💊 Prescriptive Action Summary")
