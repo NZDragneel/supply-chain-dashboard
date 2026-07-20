@@ -767,6 +767,7 @@ elif view_mode == "2. Predictive Engine":
             plt.tight_layout(); st.pyplot(fig); plt.close()
 
             # ── Formal model comparison table (Rank 9) ────────────────────
+        with left:
             st.markdown("##### 📋 Model Performance Metrics")
             from sklearn.metrics import classification_report, roc_auc_score
             X_all = df[FEATURES].ffill().bfill().fillna(0).values
